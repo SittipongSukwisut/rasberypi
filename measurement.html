@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>WOODSCAN | Measurement</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+</head>
+
+
+<body data-page="measurement">
+
+
+<div class="app">
+
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            <div class="brand-logo">
+                W
+            </div>
+
+            <div class="brand-text">
+
+                <strong>
+                    WOODSCAN
+                </strong>
+
+                <span>
+                    FACTORY SYSTEM
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="nav-title">
+            MAIN MENU
+        </div>
+
+
+        <nav class="navigation">
+
+            <a
+                href="index.html"
+                class="nav-item"
+            >
+
+                <span class="nav-icon">
+                    ▣
+                </span>
+
+                <span>
+                    QR Information
+                </span>
+
+            </a>
+
+
+            <a
+                href="measurement.html"
+                class="nav-item active"
+            >
+
+                <span class="nav-icon">
+                    ◉
+                </span>
+
+                <span>
+                    Measurement
+                </span>
+
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <div class="connection">
+
+                <span class="connection-dot"></span>
+
+                <div>
+
+                    <strong>
+                        System Online
+                    </strong>
+
+                    <small>
+                        Supabase Database
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main class="main">
+
+
+        <!-- TOPBAR -->
+
+        <header class="topbar">
+
+            <div>
+
+                <div class="breadcrumb">
+                    FACTORY SYSTEM / MEASUREMENT
+                </div>
+
+                <h1>
+                    Measurement
+                </h1>
+
+                <p>
+                    ผลการตรวจวัดและตรวจนับแผ่นไม้
+                </p>
+
+            </div>
+
+
+            <button
+                class="refresh-button"
+                onclick="loadMeasurementData()"
+            >
+
+                <span>
+                    ↻
+                </span>
+
+                รีเฟรชข้อมูล
+
+            </button>
+
+        </header>
+
+
+
+        <section class="page-content">
+
+
+            <!-- =================================================
+                 HERO
+            ================================================== -->
+
+            <div class="page-hero measurement-hero">
+
+                <div class="hero-left">
+
+                    <div class="hero-icon">
+                        ◉
+                    </div>
+
+                    <div>
+
+                        <span class="hero-kicker">
+                            QUALITY CONTROL
+                        </span>
+
+                        <h2>
+                            Measurement Dashboard
+                        </h2>
+
+                        <p>
+                            เปรียบเทียบข้อมูลจาก QR กับผลการตรวจวัดจริง
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="hero-total">
+
+                    <span>
+                        TOTAL RECORDS
+                    </span>
+
+                    <strong id="totalRecords">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 STATISTICS
+            ================================================== -->
+
+            <div class="measurement-stats">
+
+
+                <div class="measurement-stat">
+
+                    <div class="stat-icon blue">
+                        #
+                    </div>
+
+                    <div>
+
+                        <span>
+                            RECORDS
+                        </span>
+
+                        <strong id="totalRecords2">
+                            0
+                        </strong>
+
+                        <small>
+                            ข้อมูลทั้งหมด
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="measurement-stat">
+
+                    <div class="stat-icon green">
+                        ✓
+                    </div>
+
+                    <div>
+
+                        <span>
+                            COMPLETED
+                        </span>
+
+                        <strong id="completedRecords">
+                            0
+                        </strong>
+
+                        <small>
+                            ตรวจเสร็จแล้ว
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="measurement-stat">
+
+                    <div class="stat-icon amber">
+                        !
+                    </div>
+
+                    <div>
+
+                        <span>
+                            WAITING
+                        </span>
+
+                        <strong id="waitingRecords">
+                            0
+                        </strong>
+
+                        <small>
+                            รอดำเนินการ
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="measurement-stat">
+
+                    <div class="stat-icon purple">
+                        ▤
+                    </div>
+
+                    <div>
+
+                        <span>
+                            TOTAL SHEETS
+                        </span>
+
+                        <strong id="totalWood">
+                            0
+                        </strong>
+
+                        <small>
+                            จำนวนแผ่นรวม
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="measurement-stat">
+
+                    <div class="stat-icon cyan">
+                        ↕
+                    </div>
+
+                    <div>
+
+                        <span>
+                            AVG HEIGHT
+                        </span>
+
+                        <strong id="avgHeight">
+                            0
+                        </strong>
+
+                        <small>
+                            mm
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 LOADING
+            ================================================== -->
+
+            <div
+                id="measurementLoading"
+                class="status-message loading"
+            >
+
+                <span class="spinner"></span>
+
+                กำลังโหลดข้อมูลการวัดจาก Supabase...
+
+            </div>
+
+
+
+            <!-- =================================================
+                 ERROR
+            ================================================== -->
+
+            <div
+                id="measurementError"
+                class="status-message error"
+                hidden
+            >
+
+                <div>
+
+                    <strong>
+                        ไม่สามารถโหลดข้อมูลการวัดได้
+                    </strong>
+
+                    <p id="measurementErrorText"></p>
+
+                </div>
+
+
+                <button
+                    onclick="loadMeasurementData()"
+                >
+                    ลองใหม่
+                </button>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 DATA PANEL
+            ================================================== -->
+
+            <div class="data-panel">
+
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <span class="section-kicker">
+                            MEASUREMENT DATABASE
+                        </span>
+
+                        <h2>
+                            ผลการตรวจวัด
+                        </h2>
+
+                        <p>
+                            ข้อมูลจากตาราง wood_measurements
+                        </p>
+
+                    </div>
+
+
+                    <div class="search">
+
+                        <span>
+                            ⌕
+                        </span>
+
+                        <input
+                            id="measurementSearch"
+                            type="search"
+                            placeholder="ค้นหา Product Code, LOT..."
+                        >
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    #
+                                </th>
+
+                                <th>
+                                    PRODUCT
+                                </th>
+
+                                <th>
+                                    LOT
+                                </th>
+
+                                <th>
+                                    QR QTY
+                                </th>
+
+                                <th>
+                                    ACTUAL
+                                </th>
+
+                                <th>
+                                    HEIGHT
+                                </th>
+
+                                <th>
+                                    DIFFERENCE
+                                </th>
+
+                                <th>
+                                    STATUS
+                                </th>
+
+                                <th>
+                                    DATE
+                                </th>
+
+                                <th></th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="measurementTable"></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+
+<!-- =========================================================
+     MEASUREMENT DETAIL MODAL
+========================================================== -->
+
+<div
+    id="measurementModal"
+    class="modal"
+    onclick="if(event.target === this) closeMeasurementModal()"
+>
+
+    <div class="detail-modal">
+
+
+        <button
+            class="modal-close"
+            onclick="closeMeasurementModal()"
+        >
+            ×
+        </button>
+
+
+        <div class="detail-header">
+
+            <span class="section-kicker">
+                QUALITY CONTROL
+            </span>
+
+            <h2>
+                Measurement Detail
+            </h2>
+
+            <p id="modalRecordID">
+                -
+            </p>
+
+        </div>
+
+
+        <div id="measurementDetail"></div>
+
+
+    </div>
+
+</div>
+
+
+
+<script src="script.js"></script>
+
+
+</body>
+</html>

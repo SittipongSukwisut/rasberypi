@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>WOODSCAN | QR Information</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+</head>
+
+
+<body data-page="qr">
+
+
+<div class="app">
+
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            <div class="brand-logo">
+                W
+            </div>
+
+            <div class="brand-text">
+
+                <strong>
+                    WOODSCAN
+                </strong>
+
+                <span>
+                    FACTORY SYSTEM
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="nav-title">
+            MAIN MENU
+        </div>
+
+
+        <nav class="navigation">
+
+            <a
+                href="index.html"
+                class="nav-item active"
+            >
+
+                <span class="nav-icon">
+                    ▣
+                </span>
+
+                <span>
+                    QR Information
+                </span>
+
+            </a>
+
+
+            <a
+                href="measurement.html"
+                class="nav-item"
+            >
+
+                <span class="nav-icon">
+                    ◉
+                </span>
+
+                <span>
+                    Measurement
+                </span>
+
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <div class="connection">
+
+                <span class="connection-dot"></span>
+
+                <div>
+
+                    <strong>
+                        System Online
+                    </strong>
+
+                    <small>
+                        Supabase Database
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main class="main">
+
+
+        <!-- TOPBAR -->
+
+        <header class="topbar">
+
+            <div>
+
+                <div class="breadcrumb">
+                    FACTORY SYSTEM / QR
+                </div>
+
+                <h1>
+                    QR Information
+                </h1>
+
+                <p>
+                    ข้อมูล QR Code ของห่อแผ่นไม้ปาติเคิลบอร์ด
+                </p>
+
+            </div>
+
+
+            <button
+                class="refresh-button"
+                onclick="loadQRData()"
+            >
+
+                <span>
+                    ↻
+                </span>
+
+                รีเฟรชข้อมูล
+
+            </button>
+
+        </header>
+
+
+
+        <section class="page-content">
+
+
+            <!-- =================================================
+                 HERO
+            ================================================== -->
+
+            <div class="page-hero">
+
+                <div class="hero-left">
+
+                    <div class="hero-icon">
+                        ▣
+                    </div>
+
+                    <div>
+
+                        <span class="hero-kicker">
+                            PARTICLE BOARD
+                        </span>
+
+                        <h2>
+                            QR Code Records
+                        </h2>
+
+                        <p>
+                            ข้อมูลสินค้าที่อ่านจาก QR และบันทึกไว้ใน Supabase
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="hero-total">
+
+                    <span>
+                        TOTAL RECORDS
+                    </span>
+
+                    <strong id="qrCount">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 SUMMARY
+            ================================================== -->
+
+            <div class="summary-grid">
+
+
+                <div class="summary-card">
+
+                    <div class="summary-icon blue">
+                        #
+                    </div>
+
+                    <div>
+
+                        <span>
+                            QR RECORDS
+                        </span>
+
+                        <strong id="qrSummaryCount">
+                            0
+                        </strong>
+
+                        <small>
+                            รายการทั้งหมด
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="summary-card">
+
+                    <div class="summary-icon green">
+                        P
+                    </div>
+
+                    <div>
+
+                        <span>
+                            PRODUCTS
+                        </span>
+
+                        <strong id="qrProducts">
+                            0
+                        </strong>
+
+                        <small>
+                            Product Code
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="summary-card">
+
+                    <div class="summary-icon purple">
+                        ◷
+                    </div>
+
+                    <div>
+
+                        <span>
+                            LAST SCAN
+                        </span>
+
+                        <strong id="qrLastScan">
+                            -
+                        </strong>
+
+                        <small>
+                            รายการล่าสุด
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 LOADING
+            ================================================== -->
+
+            <div
+                id="qrLoading"
+                class="status-message loading"
+            >
+
+                <span class="spinner"></span>
+
+                กำลังโหลดข้อมูลจาก Supabase...
+
+            </div>
+
+
+
+            <!-- =================================================
+                 ERROR
+            ================================================== -->
+
+            <div
+                id="qrError"
+                class="status-message error"
+                hidden
+            >
+
+                <div>
+
+                    <strong>
+                        ไม่สามารถโหลดข้อมูล QR ได้
+                    </strong>
+
+                    <p id="qrErrorText"></p>
+
+                </div>
+
+
+                <button onclick="loadQRData()">
+                    ลองใหม่
+                </button>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 SECTION HEADER
+            ================================================== -->
+
+            <div class="section-header">
+
+                <div>
+
+                    <span class="section-kicker">
+                        DATABASE RECORDS
+                    </span>
+
+                    <h2>
+                        รายการ QR Code
+                    </h2>
+
+                    <p>
+                        ข้อมูลจากตาราง qr_records และรูปจาก qr-images
+                    </p>
+
+                </div>
+
+
+                <div class="live-badge">
+
+                    <span></span>
+
+                    LIVE DATA
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 QR GRID
+            ================================================== -->
+
+            <div
+                id="qrGrid"
+                class="qr-grid"
+            ></div>
+
+
+        </section>
+
+    </main>
+
+</div>
+
+
+
+<!-- =========================================================
+     IMAGE MODAL
+========================================================== -->
+
+<div
+    id="qrImageModal"
+    class="modal"
+    onclick="if(event.target === this) closeQRImage()"
+>
+
+    <div class="image-modal">
+
+        <button
+            class="modal-close"
+            onclick="closeQRImage()"
+        >
+            ×
+        </button>
+
+
+        <img
+            id="qrModalImage"
+            src=""
+            alt="QR Image"
+        >
+
+    </div>
+
+</div>
+
+
+
+<script src="script.js"></script>
+
+
+</body>
+</html>
