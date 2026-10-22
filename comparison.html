@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="th"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WOODSCAN | QR vs Measurement</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="comparison.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script></head>
+<body data-page="comparison"><div class="app"><aside class="sidebar">
+
+        <div class="brand">
+
+            <div class="brand-logo">
+                W
+            </div>
+
+            <div class="brand-text">
+
+                <strong>
+                    WOODSCAN
+                </strong>
+
+                <span>
+                    FACTORY SYSTEM
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="nav-title">
+            MAIN MENU
+        </div>
+
+
+        <nav class="navigation">
+
+            <a
+                href="index.html"
+                class="nav-item"
+            >
+
+                <span class="nav-icon">
+                    ▣
+                </span>
+
+                <span>
+                    QR Information
+                </span>
+
+            </a>
+
+
+            <a
+                href="measurement.html"
+                class="nav-item"
+            >
+
+                <span class="nav-icon">
+                    ◉
+                </span>
+
+                <span>
+                    Measurement
+                </span>
+
+            </a>
+
+            <a href="comparison.html" class="nav-item active">
+                <span class="nav-icon">⇄</span><span>QR vs Measurement</span>
+            </a>
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <div class="connection">
+
+                <span class="connection-dot"></span>
+
+                <div>
+
+                    <strong>
+                        System Online
+                    </strong>
+
+                    <small>
+                        Supabase Database
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </aside>
+<main class="main">
+<header class="topbar"><div><div class="breadcrumb">FACTORY SYSTEM / COMPARISON</div>
+<h1>เปรียบเทียบจำนวนแผ่นไม้</h1><p>เปรียบเทียบจำนวนแผ่นไม้ตาม QR Code กับผลการตรวจนับจริง</p></div>
+<button class="refresh-button" id="compareRefresh">↻ รีเฟรชข้อมูล</button></header>
+<section class="page-content compare-page">
+<div class="compare-stats">
+<div class="compare-stat"><span>รายการที่จับคู่ได้</span><strong id="statMatched">—</strong></div>
+<div class="compare-stat"><span>จำนวนตรงกัน</span><strong id="statPass">—</strong></div>
+<div class="compare-stat"><span>จำนวนไม่ตรงกัน</span><strong id="statFail">—</strong></div>
+<div class="compare-stat"><span>ยังจับคู่ไม่ได้</span><strong id="statUnmatched">—</strong></div>
+</div>
+<div class="compare-panel">
+<div class="compare-toolbar"><div><h2>รายการเปรียบเทียบ</h2><p>ผลต่าง = จำนวนที่วัดได้ − จำนวนจาก QR</p></div>
+<div class="compare-filters"><input id="compareSearch" type="search" placeholder="ค้นหารหัสสินค้า / LOT / QR">
+<select id="compareFilter"><option value="all">ทุกสถานะ</option><option value="pass">ตรงกัน</option><option value="fail">ไม่ตรงกัน</option><option value="unmatched">จับคู่ไม่ได้</option></select></div></div>
+<div id="compareNotice" class="compare-notice" role="status">กำลังโหลดข้อมูลจาก Supabase…</div>
+<div class="compare-scroll"><table class="compare-table"><thead><tr><th>รหัสสินค้า / LOT</th><th>QR Code</th><th>ตรวจนับจริง</th><th>ผลต่าง</th><th>สถานะ</th><th>วันที่วัด</th></tr></thead>
+<tbody id="compareRows"></tbody></table></div></div>
+<p class="compare-footnote">จับคู่ด้วย qr_record_id / qr_id ก่อน จากนั้นใช้รหัสสินค้าและ LOT เมื่อมีข้อมูลเพียงพอ โดยไม่ถือว่ารายการที่จับคู่ไม่ได้เป็นผลตรวจไม่ผ่าน</p>
+</section></main></div>
+<script src="script.js"></script><script src="comparison.js"></script></body></html>
